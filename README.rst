@@ -30,11 +30,11 @@
 |
 
 ===============
-python-mastrsql
+mastrsql
 ===============
 
 
-    Add a short description here!
+    A python package to download the german Marktstammdatenregister (short: MaStR) and save it as a local PostgreSQL database.
 
 
 A longer description of your project goes here...
