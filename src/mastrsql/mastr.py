@@ -11,7 +11,7 @@ import lxml
 import shutil
 from mastrsql.utils import (
     get_url,
-    download_url,
+    download_from_url,
     correction_of_metadata,
     handle_xml_syntax_error,
     initialize_database,
@@ -19,36 +19,38 @@ from mastrsql.utils import (
 
 
 class Mastr:
-    """Mirrors the MaStR (Marktstammdatenregister) to a PostrgreSQL data base.
-
-    """
+    """Mirrors the MaStR (Marktstammdatenregister) to a PostrgreSQL data base."""
 
     def __init__(self, user_credentials={}):
         self.user_credentials = user_credentials
         # self.today = date.today().strftime("%Y%m%d")
         self.today = 20211015
         self.url = get_url()
-        self.save_path = os.path.join(expanduser("~"), ".mastrsql", "data",)
+        self.save_path = os.path.join(
+            expanduser("~"),
+            ".mastrsql",
+            "data",
+        )
         self.save_zip_path = os.path.join(
             self.save_path, "Gesamtdatenexport_%s.zip" % self.today
         )
 
     def initialize(self):
-        """Downloads the latest MaStR zipped file to ~/.mastrsql/data
-        
-        """
+        """Downloads the latest MaStR zipped file to ~/.mastrsql/data"""
+
         if os.path.exists(self.save_zip_path):
             print("MaStR already downloaded.")
         else:
+            print("MaStR is downloaded to %s" % self.save_path)
             shutil.rmtree(self.save_path)
             os.makedirs(self.save_path, exist_ok=True)
             # download data from url
-            download_url(self.url, self.save_zip_path, self.today)
+            download_from_url(self.url, self.save_zip_path, self.today)
 
     def to_sql(self):
+        """Writes the local zipped MaStR to a PostgreSQL database"""
         initialize_database(self.user_credentials)
 
-        # Transforms the downloaded zip file from the .mastrsql/data directory into a sql database
         engine = create_engine(
             "postgresql+psycopg2://postgres:postgres@localhost:5432/mastrsql"
         )

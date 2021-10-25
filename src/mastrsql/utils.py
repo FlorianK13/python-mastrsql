@@ -4,7 +4,6 @@ from clint.textui import progress
 import time
 import sqlalchemy
 import pandas as pd
-import pdb
 import psycopg2
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from bs4 import BeautifulSoup
@@ -15,10 +14,10 @@ import dateutil
 def get_url():
     """Get the url of the latest MaStR file from markstammdatenregister.de.
 
-        The file and the corresponding url are updated once per day. 
-        The url has a randomly generated string appended, so it has to be
-        grabbed from the marktstammdatenregister.de homepage. 
-        For further details visit https://www.marktstammdatenregister.de/MaStR/Datendownload
+    The file and the corresponding url are updated once per day.
+    The url has a randomly generated string appended, so it has to be
+    grabbed from the marktstammdatenregister.de homepage.
+    For further details visit https://www.marktstammdatenregister.de/MaStR/Datendownload
     """
     html = requests.get("https://www.marktstammdatenregister.de/MaStR/Datendownload")
     soup = BeautifulSoup(html.text, "lxml")
@@ -29,7 +28,7 @@ def get_url():
     return url
 
 
-def download_url(url, save_path):
+def download_from_url(url, save_path):
     """Downloads the zipped MaStR.
 
     Parameters
@@ -87,7 +86,9 @@ def correction_of_metadata(df, sql_tablename, save_path_metadata):
     }
     with open(os.path.join(save_path_metadata, json_filename)) as json_file:
         dtype_dict = json.load(json_file)
-    # The loaded dtype_dict usually specifies more columns than there are columns in the df. We have to create a dtype_dict_for_df that only has keys that are columns of the list.
+    # The loaded dtype_dict usually specifies more columns than there are
+    # columns in the df. We have to create a dtype_dict_for_df that only
+    # has keys that are columns of the list.
     dtype_dict_for_df = {}
     sql_dtype_dict = {}
     for column in df.columns:
@@ -96,8 +97,9 @@ def correction_of_metadata(df, sql_tablename, save_path_metadata):
     try:
         df = df.astype(dtype_dict_for_df)
     except pd._libs.tslibs.np_datetime.OutOfBoundsDatetime:
-        # Some datetimes ly outside the interval of 677-09-21 and 2262-04-11, which causes an error. With pd.to_datetime, those values
-        # are set to NaT
+        # Some datetimes ly outside the interval of 677-09-21 and
+        # 2262-04-11, which causes an error.
+        # With pd.to_datetime, those values are set to NaT
         for key in dtype_dict_for_df:
             if (
                 dtype_dict_for_df[key] == "datetime64[D]"
@@ -105,22 +107,22 @@ def correction_of_metadata(df, sql_tablename, save_path_metadata):
             ):
                 df[key] = pd.to_datetime(df[key], errors="coerce")
     except (pd.errors.IntCastingNaNError, dateutil.parser._parser.ParserError):
-        # Errors not related to datetimes are ignored. Then the column where the error occured will not be changed, but all other columns
-        # change their data type
+        # Errors not related to datetimes are ignored.
+        # Then the column where the error occured will not be changed,
+        # but all other columns change their data type
         df = df.astype(dtype_dict_for_df, errors="ignore")
-    except:
-        pdb.set_trace()
     return df, sql_dtype_dict
 
 
 def initialize_database(user_credentials):
     """Create new PostgreSQL database if it doesn't exist yet.
-    
+
     Parameters
     ------------
     user_credentials : dict
-        Dictionary of credentials for the database. Possible keys are "dbname" default "postgres", 
-        "user" default "postgres", "password" default "postgres", "host" default "localhost",
+        Dictionary of credentials for the database. Possible keys are
+        "dbname" default "postgres", "user" default "postgres",
+        "password" default "postgres", "host" default "localhost",
         "port" default "5432".
 
     """
@@ -153,7 +155,7 @@ def initialize_database(user_credentials):
 
 def handle_xml_syntax_error(data, err):
     """Deletes entries that cause an xml syntax error and produces DataFrame.
-    
+
     Parameters
     -----------
     data : 'bytes'
