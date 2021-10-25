@@ -9,6 +9,7 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from bs4 import BeautifulSoup
 import json
 import dateutil
+from mastrsql.metadata import metadata_dict
 
 
 def get_url():
@@ -56,7 +57,7 @@ def download_from_url(url, save_path):
     print("Download is finished. It took %s seconds." % (time_b - time_a))
 
 
-def correction_of_metadata(df, sql_tablename, save_path_metadata):
+def correction_of_metadata(df, sql_tablename):
     """Changes data types of Dataframe columns according to predefined metadata.
 
     Parameters
@@ -65,8 +66,6 @@ def correction_of_metadata(df, sql_tablename, save_path_metadata):
         DataFrame of MaStR tables read from xml files
     sql_tablename : 'str'
         Name of the table in the PostrgreSQL database
-    save_path_metadata: str
-        Path where the predefined metadata can be found
 
     Returns
     --------
@@ -76,7 +75,7 @@ def correction_of_metadata(df, sql_tablename, save_path_metadata):
         Dictionary of column name / data type pairs that are needed
         for the sql dump of the DataFrame
     """
-    json_filename = sql_tablename + ".json"
+
     transform_dtypes_sql = {
         "str": sqlalchemy.types.Text,
         "int": sqlalchemy.types.Integer,
@@ -84,8 +83,8 @@ def correction_of_metadata(df, sql_tablename, save_path_metadata):
         "datetime64": sqlalchemy.types.DateTime,
         "datetime64[D]": sqlalchemy.types.Date,
     }
-    with open(os.path.join(save_path_metadata, json_filename)) as json_file:
-        dtype_dict = json.load(json_file)
+
+    dtype_dict = metadata_dict[sql_tablename]
     # The loaded dtype_dict usually specifies more columns than there are
     # columns in the df. We have to create a dtype_dict_for_df that only
     # has keys that are columns of the list.
@@ -127,27 +126,21 @@ def initialize_database(user_credentials):
         "port" default "5432".
 
     """
-    standard_credentials = {
-        "dbname": "postgres",
-        "user": "postgres",
-        "password": "postgres",
-        "host": "localhost",
-        "port": "5432",
-    }
-    # merge dictionaries, double entries are defined by the second dict
-    postgres_credentials = {**standard_credentials, **user_credentials}
+    
+
+
     try:
         con = psycopg2.connect(
-            dbname=postgres_credentials["dbname"],
-            user=postgres_credentials["user"],
-            password=postgres_credentials["password"],
-            host=postgres_credentials["host"],
-            port=postgres_credentials["port"],
+            dbname="postgres",
+            user=user_credentials["user"],
+            password=user_credentials["password"],
+            host=user_credentials["host"],
+            port=user_credentials["port"],
         )
         con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
         cursor = con.cursor()
         name_database = "mastrsql"
-        cursor.execute("CREATE DATABASE %s;", name_database)
+        cursor.execute(f"CREATE DATABASE {name_database};")
         cursor.close()
         con.close()
     except psycopg2.errors.DuplicateDatabase:
