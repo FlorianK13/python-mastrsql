@@ -5,6 +5,8 @@ Changelog
 Version 0.1
 ===========
 
-- Feature A added
-- FIX: nasty bug #1729 fixed
-- add your changes here!
+- First published version
+- Added a Mastr class
+- Added the Mastr class function initialize
+- Added the Mastr class function to_sql
+- Added util functions

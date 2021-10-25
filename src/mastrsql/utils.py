@@ -114,12 +114,13 @@ def correction_of_metadata(df, sql_tablename, save_path_metadata):
     return df, sql_dtype_dict
 
 
+
 def initialize_database(user_credentials):
     """Create new PostgreSQL database if it doesn't exist yet.
 
     Parameters
     ------------
-    user_credentials : dict
+    user_credentials : 'dict'
         Dictionary of credentials for the database. Possible keys are
         "dbname" default "postgres", "user" default "postgres",
         "password" default "postgres", "host" default "localhost",

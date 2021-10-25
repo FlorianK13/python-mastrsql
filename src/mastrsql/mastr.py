@@ -16,15 +16,17 @@ from mastrsql.utils import (
     handle_xml_syntax_error,
     initialize_database,
 )
+from datetime import date
 
 
 class Mastr:
     """Mirrors the MaStR (Marktstammdatenregister) to a PostrgreSQL data base."""
 
     def __init__(self, user_credentials={}):
+        assert type(user_credentials) == dict, "Variable user_credentials has to be a python dictionary!"
         self.user_credentials = user_credentials
-        # self.today = date.today().strftime("%Y%m%d")
-        self.today = 20211015
+        self.today = date.today().strftime("%Y%m%d")
+        #self.today = 20211015
         self.url = get_url()
         self.save_path = os.path.join(
             expanduser("~"),
@@ -35,17 +37,24 @@ class Mastr:
             self.save_path, "Gesamtdatenexport_%s.zip" % self.today
         )
 
-    def initialize(self):
-        """Downloads the latest MaStR zipped file to ~/.mastrsql/data"""
-
+    def download(self, delete_old=True):
+        """Downloads the latest MaStR zipped file to ~/.mastrsql/data
+        
+        Parameters
+        ------------
+        delete_old : boolean, default 'True'
+            If delete_old is True, older versions of the downloaded zipped
+            MaStR will be deleted if found in self.save_zip_path
+        """
         if os.path.exists(self.save_zip_path):
             print("MaStR already downloaded.")
         else:
+            if delete_old:
+                shutil.rmtree(self.save_path)
             print("MaStR is downloaded to %s" % self.save_path)
-            shutil.rmtree(self.save_path)
             os.makedirs(self.save_path, exist_ok=True)
             # download data from url
-            download_from_url(self.url, self.save_zip_path, self.today)
+            download_from_url(self.url, self.save_zip_path)
 
     def to_sql(self):
         """Writes the local zipped MaStR to a PostgreSQL database"""
@@ -56,9 +65,9 @@ class Mastr:
         )
 
         # only relevant while coding, should be deleted before production built
-        # filesthatwork = []
+        filesthatwork = []
 
-        filesthatwork = [
+        """filesthatwork = [
             "anlageneegbiomasse",
             "anlageneeggeosolarthermiegrubenklaerschlammdruckentspannung",
             "anlageneegsolar",
@@ -82,7 +91,7 @@ class Mastr:
             "einheitenstromspeicher",
             "einheitenstromverbraucher",
             "einheitentypen",
-        ]
+        ]"""
 
         with ZipFile(self.save_zip_path, "r") as f:
             for name in f.namelist():
@@ -155,5 +164,5 @@ class Mastr:
 
 if __name__ == "__main__":
     database = Mastr()
-    # database.initialize()
-    database.to_sql()
+    database.download()
+    #database.to_sql()
