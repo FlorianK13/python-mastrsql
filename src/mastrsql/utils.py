@@ -114,37 +114,51 @@ def correction_of_metadata(df, sql_tablename):
 
 
 
-def initialize_database(user_credentials):
+def initialize_database(user_credentials, postgres_standard_credentials = {}):
     """Create new PostgreSQL database if it doesn't exist yet.
 
     Parameters
     ------------
     user_credentials : 'dict'
-        Dictionary of credentials for the database. Possible keys are
+        Dictionary of credentials for the database.
+
+    postgres_standard_credentials : 'dict', default {}
+        Dictionary of credentials for the database initially created
+        when installing PostgresSQL. Possible keys are
         "dbname" default "postgres", "user" default "postgres",
         "password" default "postgres", "host" default "localhost",
-        "port" default "5432".
+        "port" default "5432". The given default values are insterted
+        into the postgres_standard_credentials if they are not given
+        by the user.
 
     """
     
+    postgres_standard_credentials_temp = {
+        "dbname": "postgres",
+        "user": "postgres",
+        "password": "postgres",
+        "host": "localhost",
+        "port": "5432",
+        }
 
+    postgres_standard_credentials = {**postgres_standard_credentials_temp, **postgres_standard_credentials}    
 
     try:
         con = psycopg2.connect(
-            dbname="postgres",
-            user=user_credentials["user"],
-            password=user_credentials["password"],
-            host=user_credentials["host"],
-            port=user_credentials["port"],
+            dbname=postgres_standard_credentials["dbname"],
+            user=postgres_standard_credentials["user"],
+            password=postgres_standard_credentials["password"],
+            host=postgres_standard_credentials["host"],
+            port=postgres_standard_credentials["port"],
         )
         con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
         cursor = con.cursor()
-        name_database = "mastrsql"
+        name_database = user_credentials["dbname"]
         cursor.execute(f"CREATE DATABASE {name_database};")
         cursor.close()
         con.close()
     except psycopg2.errors.DuplicateDatabase:
-        print("Using existing mastrsql database in PostgreSQL.")
+        print(f"Using existing {name_database} database in PostgreSQL.")
 
 
 def handle_xml_syntax_error(data, err):
