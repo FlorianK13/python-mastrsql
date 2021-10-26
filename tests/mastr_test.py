@@ -24,7 +24,7 @@ def test_Mastr_download():
     assert os.path.getsize(mastr.save_zip_path) > 900000000
 
 def test_Mastr_to_sql():
-    exclude_tables=[]
+    exclude_tables=["anlageneegsolar", "einheitensolar", "lokationen", "marktakteure", "netzanschlusspunkte"]
     mastr = Mastr()
     mastr.to_sql(exclude_tables=exclude_tables)
 

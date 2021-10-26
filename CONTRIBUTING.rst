@@ -27,7 +27,7 @@
 Contributing
 ============
 
-Welcome to ``python-mastrsql`` contributor's guide.
+Welcome to ``mastrsql`` contributor's guide.
 
 This document focuses on getting any potential contributor familiarized
 with the development processes, but `other kinds of contributions`_ are also
@@ -46,7 +46,7 @@ guidelines.
 Issue Reports
 =============
 
-If you experience bugs or general issues with ``python-mastrsql``, please have a look
+If you experience bugs or general issues with ``mastrsql``, please have a look
 on the `issue tracker`_. If you don't see anything useful there, please feel
 free to fire an issue report.
 
@@ -65,10 +65,10 @@ you help us to identify the root cause of the issue.
 Documentation Improvements
 ==========================
 
-You can help improve ``python-mastrsql`` docs by making them more readable and coherent, or
+You can help improve ``mastrsql`` docs by making them more readable and coherent, or
 by adding missing information and correcting mistakes.
 
-``python-mastrsql`` documentation uses Sphinx_ as its main documentation compiler.
+``mastrsql`` documentation uses Sphinx_ as its main documentation compiler.
 This means that the docs are kept in the same repository as the project code, and
 that any documentation update is done in the same way was a code contribution.
 
@@ -80,7 +80,7 @@ that any documentation update is done in the same way was a code contribution.
 
    .. tip::
       Please notice that the `GitHub web interface`_ provides a quick way of
-      propose changes in ``python-mastrsql``'s files. While this mechanism can
+      propose changes in ``mastrsql``'s files. While this mechanism can
       be tricky for normal code contributions, it works perfectly fine for
       contributing to the docs, and can be quite handy.
 
@@ -131,8 +131,8 @@ This can easily be done via either |virtualenv|_::
 
 or Miniconda_::
 
-    conda create -n python-mastrsql python=3 six virtualenv pytest pytest-cov
-    conda activate python-mastrsql
+    conda create -n mastrsql python=3 six virtualenv pytest pytest-cov
+    conda activate mastrsql
 
 Clone the repository
 --------------------
