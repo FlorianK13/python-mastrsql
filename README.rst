@@ -45,7 +45,7 @@ which are not yet saved in the local database via the API.
 
 Quick Start
 ============
-Install the package from PyPI.
+Install the package from PyPI (as soon as it is published there).
 
 .. code:: bash
 
