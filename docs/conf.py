@@ -34,7 +34,7 @@ except ImportError:
     from sphinx import apidoc
 
 output_dir = os.path.join(__location__, "api")
-module_dir = os.path.join(__location__, "../src/python_mastrsql")
+module_dir = os.path.join(__location__, "../src/mastrsql")
 try:
     shutil.rmtree(output_dir)
 except FileNotFoundError:
@@ -87,7 +87,7 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = "python-mastrsql"
+project = "mastrsql"
 copyright = "2021, Florian Kotthoff"
 
 # The version info for the project you're documenting, acts as replacement for
@@ -99,7 +99,7 @@ copyright = "2021, Florian Kotthoff"
 # If you don’t need the separation provided between version and release,
 # just set them both to the same value.
 try:
-    from python_mastrsql import __version__ as version
+    from mastrsql import __version__ as version
 except ImportError:
     version = ""
 
@@ -229,7 +229,7 @@ html_static_path = ["_static"]
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "python-mastrsql-doc"
+htmlhelp_basename = "mastrsql-doc"
 
 
 # -- Options for LaTeX output ------------------------------------------------

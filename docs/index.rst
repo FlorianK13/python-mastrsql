@@ -1,8 +1,8 @@
 ===============
-python-mastrsql
+mastrsql
 ===============
 
-This is the documentation of **python-mastrsql**.
+This is the documentation of **mastrsql**.
 
 .. note::
 

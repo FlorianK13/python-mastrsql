@@ -22,9 +22,9 @@ from datetime import date
 class Mastr:
     """Mirrors the MaStR (Marktstammdatenregister) to a PostrgreSQL data base.
 
-        Parameters
+    Parameters
     ------------
-    user_credentials : 'dict', default {}
+    user_credentials : dict, default {}
         Dictionary of credentials for the database. Possible keys are
         "dbname", "user", "password", "host", "port". Key-Value pairs that are not
         explicitly given will be set to 
@@ -33,6 +33,11 @@ class Mastr:
         "password": "postgres",
         "host": "localhost",
         "port": "5432"
+
+    Returns
+    --------
+    out : mastrsql.mastr.Mastr
+        An Mastr object that represents the MaStR database.
     """
 
 
@@ -67,11 +72,11 @@ class Mastr:
         self.engine = create_engine(create_engine_string)
 
     def download(self, delete_old=True):
-        """Downloads the latest MaStR zipped file to ~/.mastrsql/data
+        """Downloads the latest MaStR zipped file to HOME/.mastrsql/data
         
         Parameters
         ------------
-        delete_old : boolean, default 'True'
+        delete_old : boolean, default True
             If delete_old is True, older versions of the downloaded zipped
             MaStR will be deleted if found in self.save_zip_path
         """
