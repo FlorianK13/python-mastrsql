@@ -176,10 +176,13 @@ def handle_xml_syntax_error(data, err):
     df : pandas.DataFrame
         DataFrame which is read from the changed xml data.
     """
+    
+    # Actually it is unclear if there are still invalid xml files in the recent MaStR.
+
     wrong_char_position = int(str(err).split()[-4])
     decoded_data = data.decode("utf-16")
     loop_condition = True
-    #pdb.set_trace()
+
     shift = 0
     while loop_condition:
         evaluated_string = decoded_data[wrong_char_position + shift]

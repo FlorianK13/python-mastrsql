@@ -149,16 +149,17 @@ class Mastr:
 
                 exclude_count = exclude_tables_reference.count(sql_tablename)
                 if exclude_count == exclude_count_reference:
-                    index_for_printed_message=1
+                    
                     if (
                     name.split(".")[0].split("_")[-1] == "1"
                     or len(name.split(".")[0].split("_")) == 1
                     ):
                         if_exists = "replace"
                         print("New table %s is created in the PostgreSQL database." %sql_tablename)
+                        index_for_printed_message=1
                     else:
                         if_exists = "append"
-                        print(f"File {index_for_printed_message} is parsed.")
+                        print(f"File {index_for_printed_message} from {sql_tablename} is parsed.")
                         index_for_printed_message+=1
                     
                     data = f.read(name)
@@ -203,7 +204,7 @@ class Mastr:
                             con.close()
                         except sqlalchemy.exc.DataError as err:
                             delete_entry = str(err).split("«")[0].split("»")[1]
-                            print(delete_entry)
+                            print(f"The entry {delete_entry} was deleteted due to its false data type.")
                             df = df.replace(delete_entry, np.nan)
 
 
