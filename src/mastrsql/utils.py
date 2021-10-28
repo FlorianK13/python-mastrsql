@@ -7,7 +7,7 @@ import pandas as pd
 import psycopg2
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from bs4 import BeautifulSoup
-import json
+import pdb
 import dateutil
 from mastrsql.metadata import metadata_dict
 
@@ -62,16 +62,16 @@ def correction_of_metadata(df, sql_tablename):
 
     Parameters
     -----------
-    df : pandas DataFrame
+    df : pandas.DataFrame
         DataFrame of MaStR tables read from xml files
-    sql_tablename : 'str'
+    sql_tablename : str
         Name of the table in the PostrgreSQL database
 
     Returns
     --------
-    df : pandas DataFrame
+    df : pandas.DataFrame
         DataFrame of MaStR with corrected metadata
-    sql_dtype_dict : 'dict'
+    sql_dtype_dict : dict
         Dictionary of column name / data type pairs that are needed
         for the sql dump of the DataFrame
     """
@@ -119,10 +119,10 @@ def initialize_database(user_credentials, postgres_standard_credentials = {}):
 
     Parameters
     ------------
-    user_credentials : 'dict'
+    user_credentials : dict
         Dictionary of credentials for the database.
 
-    postgres_standard_credentials : 'dict', default {}
+    postgres_standard_credentials : dict, default {}
         Dictionary of credentials for the database initially created
         when installing PostgresSQL. Possible keys are
         "dbname" default "postgres", "user" default "postgres",
@@ -166,19 +166,20 @@ def handle_xml_syntax_error(data, err):
 
     Parameters
     -----------
-    data : 'bytes'
+    data : bytes
         Unzipped xml data
     err : ErrorMessage
         Error message that appeared when trying to use pd.read_xml on invalid xml file.
 
     Returns
     ----------
-    df : pandas DataFrame
+    df : pandas.DataFrame
         DataFrame which is read from the changed xml data.
     """
     wrong_char_position = int(str(err).split()[-4])
     decoded_data = data.decode("utf-16")
     loop_condition = True
+    #pdb.set_trace()
     shift = 0
     while loop_condition:
         evaluated_string = decoded_data[wrong_char_position + shift]

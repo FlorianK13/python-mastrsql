@@ -41,7 +41,7 @@ on their website_. This data set is called *Markstammdatenregister* (short: MaSt
 they offer a complete `data download`_ in zipped xml format 
 besides their API_. The scope of the mastrsql package is to offer an easy and automated download of the MaStR into a local 
 PostgreSQL database. It is planned to expand the package to also include an update function, that only downloads new entries
-which are not yet saved in the local database via the API.
+which are not yet saved in the local database via the API. If you're looking for other features, also check out `open-Mastr`_
 
 Quick Start
 ============
@@ -79,3 +79,5 @@ information on PyScaffold see https://pyscaffold.org/.
 .. _data download: https://www.marktstammdatenregister.de/MaStR/Datendownload 
 .. _API: https://www.marktstammdatenregister.de/MaStRHilfe/subpages/webdienst.html
 .. _pandas.read_sql: https://pandas.pydata.org/docs/reference/api/pandas.read_sql.html
+.. _open-Mastr: https://open-mastr.readthedocs.io/en/dev/
+
