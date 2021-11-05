@@ -57,6 +57,9 @@ Import the Mastr class and define a Mastr object.
 
 >>> from mastrsql.mastr import Mastr 
 
+The *postgres_standard_credentials* depend on your postgres configuration. Check the given credentials before using them, 
+otherwise an error will occure.
+
 >>> postgres_standard_credentials = {
         "dbname": "postgres",
         "user": "postgres",

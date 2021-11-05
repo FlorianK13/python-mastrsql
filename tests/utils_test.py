@@ -20,7 +20,7 @@ def test_correction_of_metadata():
 
     assert type(df_2) == pd.core.frame.DataFrame
     assert len(df_2) == 2
-    assert type(df_2.Postleitzahl[1]) == np.int32
+    assert type(df_2.Postleitzahl[1]) == int
     assert type(df_2.Inbetriebnahmedatum[1]) == pd._libs.tslibs.timestamps.Timestamp
     assert type(sql_dtype_dict) == dict
     assert len(sql_dtype_dict) == 3

@@ -114,7 +114,7 @@ def correction_of_metadata(df, sql_tablename):
 
 
 
-def initialize_database(user_credentials, postgres_standard_credentials = {}):
+def initialize_database(user_credentials, postgres_standard_credentials):
     """Create new PostgreSQL database if it doesn't exist yet.
 
     Parameters
@@ -133,15 +133,15 @@ def initialize_database(user_credentials, postgres_standard_credentials = {}):
 
     """
     
-    postgres_standard_credentials_temp = {
-        "dbname": "postgres",
-        "user": "postgres",
-        "password": "postgres",
-        "host": "localhost",
-        "port": "5432",
-        }
+    #postgres_standard_credentials_temp = {
+    #    "dbname": "postgres",
+    #    "user": "postgres",
+    #    "password": "postgres",
+    #    "host": "localhost",
+    #    "port": "5432",
+    #    }
 
-    postgres_standard_credentials = {**postgres_standard_credentials_temp, **postgres_standard_credentials}    
+    #postgres_standard_credentials = {**postgres_standard_credentials_temp, **postgres_standard_credentials}    
 
     try:
         con = psycopg2.connect(

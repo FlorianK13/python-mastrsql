@@ -51,7 +51,7 @@ class Mastr:
     """
 
 
-    def __init__(self, user_credentials={}, postgres_standard_credentials={}):
+    def __init__(self, postgres_standard_credentials, user_credentials={}):
         assert type(user_credentials) == dict, "Variable user_credentials has to be a python dictionary!"
         
         #self.today = date.today().strftime("%Y%m%d")
@@ -93,7 +93,7 @@ class Mastr:
         if os.path.exists(self.save_zip_path):
             print("MaStR already downloaded.")
         else:
-            if delete_old:
+            if delete_old and os.path.exists(self.save_path):
                 shutil.rmtree(self.save_path)
             print("MaStR is downloaded to %s" % self.save_path)
             os.makedirs(self.save_path, exist_ok=True)
