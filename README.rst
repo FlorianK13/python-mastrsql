@@ -57,7 +57,15 @@ Import the Mastr class and define a Mastr object.
 
 >>> from mastrsql.mastr import Mastr 
 
->>> database = Mastr()
+>>> postgres_standard_credentials = {
+        "dbname": "postgres",
+        "user": "postgres",
+        "password": "postgres",
+        "host": "localhost",
+        "port": "5432",
+        }
+
+>>> database = Mastr(postgres_standard_credentials=postgres_standard_credentials)
 
 Download the latest version of the zipped MaStR in xml format.
 
