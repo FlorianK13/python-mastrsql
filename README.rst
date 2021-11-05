@@ -45,6 +45,7 @@ which are not yet saved in the local database via the API. If you're looking for
 
 Quick Start
 ============
+Install PostgreSQL_, either on your own or with the help of a tutorial video_ (for Linux).
 Install the package from PyPI (as soon as it is published there).
 
 .. code:: bash
@@ -80,4 +81,7 @@ information on PyScaffold see https://pyscaffold.org/.
 .. _API: https://www.marktstammdatenregister.de/MaStRHilfe/subpages/webdienst.html
 .. _pandas.read_sql: https://pandas.pydata.org/docs/reference/api/pandas.read_sql.html
 .. _open-Mastr: https://open-mastr.readthedocs.io/en/dev/
+.. _PostgreSQL: https://www.postgresql.org/
+.. _video: https://www.youtube.com/watch?v=-LwI4HMR_Eg
+
 
