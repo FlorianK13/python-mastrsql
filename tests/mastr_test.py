@@ -3,13 +3,23 @@ import pytest
 import os
 import pandas as pd
 
+postgres_standard_credentials = {
+        "dbname": "postgres",
+        "user": "postgres",
+        "password": "postgres",
+        "host": "localhost",
+        "port": "5432",
+        }
 
 def test_Mastr_init():
+    
     with pytest.raises(AssertionError):
         user_credentials = "This is a string"
-        mastr = Mastr(user_credentials=user_credentials)
+        mastr = Mastr(postgres_standard_credentials=postgres_standard_credentials,user_credentials=user_credentials)
+    
+    
  
-    mastr = Mastr()
+    mastr = Mastr(postgres_standard_credentials=postgres_standard_credentials)
     assert type(mastr.today) == str
     assert type(mastr.url) == str
     assert "marktstammdatenregister" in mastr.url
@@ -17,7 +27,7 @@ def test_Mastr_init():
 
 
 def test_Mastr_download():
-    mastr = Mastr()
+    mastr = Mastr(postgres_standard_credentials=postgres_standard_credentials)
     mastr.download()
     assert os.path.exists(mastr.save_zip_path) 
     assert os.path.getsize(mastr.save_zip_path) > 900000000
@@ -25,7 +35,7 @@ def test_Mastr_download():
 def test_Mastr_to_sql():
     exclude_tables=["anlageneegsolar", "einheitensolar", "lokationen", "marktakteure", "netzanschlusspunkte","marktrollen"]
     include_tables=["netze","einheitengaserzeuger","marktrollen"]
-    mastr = Mastr()
+    mastr = Mastr(postgres_standard_credentials=postgres_standard_credentials)
     mastr.to_sql(exclude_tables=exclude_tables)
     
 

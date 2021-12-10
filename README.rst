@@ -45,6 +45,7 @@ which are not yet saved in the local database via the API. If you're looking for
 
 Quick Start
 ============
+Install PostgreSQL_, either on your own or with the help of a tutorial video_ (for Linux).
 Install the package from PyPI (as soon as it is published there).
 
 .. code:: bash
@@ -56,7 +57,18 @@ Import the Mastr class and define a Mastr object.
 
 >>> from mastrsql.mastr import Mastr 
 
->>> database = Mastr()
+The *postgres_standard_credentials* depend on your postgres configuration. Check the given credentials before using them, 
+otherwise an error will occure.
+
+>>> postgres_standard_credentials = {
+        "dbname": "postgres",
+        "user": "postgres",
+        "password": "postgres",
+        "host": "localhost",
+        "port": "5432",
+        }
+
+>>> database = Mastr(postgres_standard_credentials=postgres_standard_credentials)
 
 Download the latest version of the zipped MaStR in xml format.
 
@@ -71,8 +83,7 @@ For extracting information from the local PostgreSQL database we refer to other 
 Note
 ====
 
-This project has been set up using PyScaffold 4.1.1. For details and usage
-information on PyScaffold see https://pyscaffold.org/.
+This project is currently merged with open-Mastr_. It will be deleted afterwards.
 
 
 .. _website: https://www.marktstammdatenregister.de/MaStR
@@ -80,4 +91,7 @@ information on PyScaffold see https://pyscaffold.org/.
 .. _API: https://www.marktstammdatenregister.de/MaStRHilfe/subpages/webdienst.html
 .. _pandas.read_sql: https://pandas.pydata.org/docs/reference/api/pandas.read_sql.html
 .. _open-Mastr: https://open-mastr.readthedocs.io/en/dev/
+.. _PostgreSQL: https://www.postgresql.org/
+.. _video: https://www.youtube.com/watch?v=-LwI4HMR_Eg
+
 
