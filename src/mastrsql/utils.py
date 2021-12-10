@@ -1,5 +1,4 @@
 import requests
-import os
 from clint.textui import progress
 import time
 import sqlalchemy
@@ -176,7 +175,7 @@ def handle_xml_syntax_error(data, err):
     df : pandas.DataFrame
         DataFrame which is read from the changed xml data.
     """
-    
+
     # Actually it is unclear if there are still invalid xml files in the recent MaStR.
 
     wrong_char_position = int(str(err).split()[-4])
