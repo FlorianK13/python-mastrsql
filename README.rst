@@ -1,31 +1,5 @@
-.. These are examples of badges you might want to add to your README:
-   please update the URLs accordingly
-
-    .. image:: https://api.cirrus-ci.com/github/<USER>/mastrsql.svg?branch=main
-        :alt: Built Status
-        :target: https://cirrus-ci.com/github/<USER>/mastrsql
-    .. image:: https://readthedocs.org/projects/mastrsql/badge/?version=latest
-        :alt: ReadTheDocs
-        :target: https://mastrsql.readthedocs.io/en/stable/
-    .. image:: https://img.shields.io/coveralls/github/<USER>/mastrsql/main.svg
-        :alt: Coveralls
-        :target: https://coveralls.io/r/<USER>/mastrsql
-    .. image:: https://img.shields.io/pypi/v/mastrsql.svg
-        :alt: PyPI-Server
-        :target: https://pypi.org/project/mastrsql/
-    .. image:: https://img.shields.io/conda/vn/conda-forge/mastrsql.svg
-        :alt: Conda-Forge
-        :target: https://anaconda.org/conda-forge/mastrsql
-    .. image:: https://pepy.tech/badge/mastrsql/month
-        :alt: Monthly Downloads
-        :target: https://pepy.tech/project/mastrsql
-
-
-.. image:: https://img.shields.io/badge/-PyScaffold-005CA0?logo=pyscaffold
-    :alt: Project generated with PyScaffold
-    :target: https://pyscaffold.org/
-
-|
+.. note::
+   This project is outdated. The work was transferred to open-Mastr_, where it was released in version 0.11.0
 
 ===============
 mastrsql
@@ -80,17 +54,16 @@ Read the downloaded files into a PostgreSQL database.
 
 For extracting information from the local PostgreSQL database we refer to other packages, for example you can use `pandas.read_sql`_.
 
-Note
-====
 
-This project is currently merged with open-Mastr_. It will be deleted afterwards.
+
+
 
 
 .. _website: https://www.marktstammdatenregister.de/MaStR
 .. _data download: https://www.marktstammdatenregister.de/MaStR/Datendownload 
 .. _API: https://www.marktstammdatenregister.de/MaStRHilfe/subpages/webdienst.html
 .. _pandas.read_sql: https://pandas.pydata.org/docs/reference/api/pandas.read_sql.html
-.. _open-Mastr: https://open-mastr.readthedocs.io/en/dev/
+.. _open-Mastr: https://github.com/OpenEnergyPlatform/open-MaStR
 .. _PostgreSQL: https://www.postgresql.org/
 .. _video: https://www.youtube.com/watch?v=-LwI4HMR_Eg
 
