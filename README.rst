@@ -1,5 +1,10 @@
 .. note::
-   This project is outdated. The work was transferred to open-Mastr_, where it was released in version 0.11.0
+   This project is outdated. The work was transferred to open-Mastr_, where it was released in version 0.11.0. It is installable via 
+   pip:
+.. code:: bash
+
+    pip install open-mastr
+   
 
 ===============
 mastrsql
@@ -20,13 +25,7 @@ which are not yet saved in the local database via the API. If you're looking for
 Quick Start
 ============
 Install PostgreSQL_, either on your own or with the help of a tutorial video_ (for Linux).
-Install the package from PyPI (as soon as it is published there).
-
-.. code:: bash
-
-    pip install mastrsql
-
-
+Install the software from the repository. 
 Import the Mastr class and define a Mastr object.
 
 >>> from mastrsql.mastr import Mastr 
